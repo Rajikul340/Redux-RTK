@@ -4,12 +4,15 @@ import { useGetProductsQuery } from "../feature/api/apiSlice";
 
 
 const Home = () => {
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading, error } = useGetProductsQuery();
   console.log(data);
   const products = data;
 
   if (isLoading) {
     return <p>Loading.....</p>;
+  }
+  if(error){
+    return <p>something went wrong</p>
   }
 
   return (
