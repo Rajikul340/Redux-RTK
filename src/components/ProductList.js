@@ -1,9 +1,13 @@
+import { useGetProductsQuery, useRemoveProductMutation } from "../feature/api/apiSlice";
 
 
 const ProductList = () => {
 
- 
+ const [removeProuct] = useRemoveProductMutation()
+ const  {data,isLoading} = useGetProductsQuery();
+ const products = data ;
 
+if(isLoading) return <p>Loading...</p>
   return (
     <div className='flex flex-col justify-center items-center h-full w-full '>
       <div className='w-full max-w-7xl mx-auto rounded-lg  bg-white shadow-lg border border-gray-200'>
@@ -35,7 +39,7 @@ const ProductList = () => {
             </thead>
 
             <tbody className='text-sm divide-y divide-gray-100'>
-              {/* {products?.map(({ model, brand, price, status, _id }) => (
+              {products?.map(({ model, brand, price, status, _id }) => (
                 <tr>
                   <td className='p-2'>
                     <input type='checkbox' className='w-5 h-5' value='id-1' />
@@ -63,7 +67,7 @@ const ProductList = () => {
                   <td className='p-2'>
                     <div className='flex justify-center'>
                       <button
-                           onClick={()=>dispatch(removeProduct(_id))}
+                           onClick={()=>removeProuct(_id)}
                        >
                         <svg
                           className='w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1'
@@ -83,7 +87,7 @@ const ProductList = () => {
                     </div>
                   </td>
                 </tr>
-              ))} */}
+              ))}
             </tbody>
           </table>
         </div>

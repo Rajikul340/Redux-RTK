@@ -5,11 +5,13 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000",
   }),
+   tagTypes: ["products"],
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () =>({
+      query: (id) =>({
         url: "/product"
       }),
+      providesTags:["products"]
     }),
     addProduct: builder.mutation({
         query:(data)=>({
@@ -17,8 +19,16 @@ export const apiSlice = createApi({
             method:"POST",
             body: data
         })
-    })
+
+    }),
+    removeProduct: builder.mutation({
+        query:(id)=>({
+            url:`/product/${id}`,
+            method:"DELETE",      
+        }),
+      invalidatesTags:["products"]
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useAddProductMutation } = apiSlice;
+export const { useGetProductsQuery, useAddProductMutation, useRemoveProductMutation } = apiSlice;

@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { useGetProductsQuery } from "../feature/api/apiSlice";
 
-
 const Home = () => {
-  const { data, isLoading, error } = useGetProductsQuery();
+  const { data, isLoading, error } = useGetProductsQuery(null, {
+    refetchOnMountOrArgChange: true,
+  });
   console.log(data);
   const products = data;
 
   if (isLoading) {
     return <p>Loading.....</p>;
   }
-  if(error){
-    return <p>something went wrong</p>
+  if (error) {
+    return <p>something went wrong</p>;
   }
 
   return (
